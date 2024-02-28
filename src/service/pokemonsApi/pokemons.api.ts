@@ -1,10 +1,25 @@
-import { api } from '../api.service'
+import { api } from 'service/api.service'
+import { IResponsePokemon } from 'types/interfaces'
 
 const pokemonApi = api.injectEndpoints({
 	endpoints: builder => ({
-		getPokemons: builder.query({
-			query: () => ({
-				url: 'pokemon',
+		getPokemons: builder.query<IResponsePokemon, string | null>({
+			query: limit => ({
+				url: `pokemon?${limit}`,
+				method: 'GET',
+			}),
+			providesTags: ['pokemon'],
+		}),
+		getPokemonByName: builder.query<any, string>({
+			query: name => ({
+				url: `pokemon/${name}`,
+				method: 'GET',
+			}),
+			providesTags: ['pokemon'],
+		}),
+		getPokemonsByType: builder.query<any, number>({
+			query: type => ({
+				url: `type/${type}`,
 				method: 'GET',
 			}),
 			providesTags: ['pokemon'],
@@ -12,4 +27,8 @@ const pokemonApi = api.injectEndpoints({
 	}),
 })
 
-export const { useGetPokemonsQuery } = pokemonApi
+export const {
+	useGetPokemonsQuery,
+	useLazyGetPokemonByNameQuery,
+	useGetPokemonsByTypeQuery,
+} = pokemonApi

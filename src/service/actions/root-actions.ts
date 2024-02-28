@@ -1,3 +1,3 @@
-import { pokemons } from '../pokemonsApi/pokemon.slice'
+import { pokemons } from 'service/pokemonsApi/pokemon.slice'
 
 export const rootActions = { pokemons }
