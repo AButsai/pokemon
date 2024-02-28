@@ -1,0 +1,13 @@
+.list {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+	list-style: none;
+}
+
+.endText {
+	text-align: center;
+	padding: 20px 0;
+	color: #ffffff;
+}

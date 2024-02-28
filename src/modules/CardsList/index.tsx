@@ -1,59 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component'
+import React from 'react'
 
-import { useGetPokemonsQuery } from 'service/pokemonsApi/pokemons.api'
-import { IPokemon } from 'types/interfaces'
+import { IPokemon, IResponsePokemons } from 'types/interfaces'
 
-// import s from './CardsList.module.scss'
+import CardItem from 'modules/CardItem'
+import s from './CardsList.module.scss'
 
-interface Props {}
+interface Props {
+	pokemons: IPokemon[]
+}
 
-const CardsList: React.FC<Props> = () => {
-	const [pokemons, setPokemons] = useState<IPokemon[]>([])
-	const [limit, setLimit] = useState<string>('offset=0&limit=14')
-	const [hasMore, setHasMore] = useState<boolean>(true)
-
-	const { data, isSuccess } = useGetPokemonsQuery(limit)
-
-	useEffect(() => {
-		if (pokemons.length === data?.count) {
-			setHasMore(false)
-		}
-	}, [data?.count, pokemons.length])
-
-	useEffect(() => {
-		if (data && isSuccess) {
-			const results = data.results
-			const newPokemons = results.filter(
-				result => !pokemons.some(pokemon => pokemon.name === result.name)
-			)
-			setPokemons(prev => [...prev, ...newPokemons])
-		}
-	}, [data, isSuccess])
-
-	const handleClick = () => {
-		const nextLimit = data?.next?.split('?')[1] as string
-		setLimit(nextLimit)
-	}
-
+const CardsList: React.FC<Props> = ({ pokemons }) => {
 	return (
-		<InfiniteScroll
-			dataLength={pokemons.length}
-			next={handleClick}
-			hasMore={hasMore}
-			loader={<h4>Loading</h4>}
-			endMessage={
-				<p style={{ textAlign: 'center' }}>
-					<b>Yay! You have seen it all</b>
-				</p>
-			}
-		>
-			{pokemons.map((p, ind) => (
-				<p key={ind} style={{ color: 'wheat', height: '15px' }}>
-					{p.name}
-				</p>
-			))}
-		</InfiniteScroll>
+		<div>
+			<ul className={s.list}>
+				{pokemons.map(pokemon => (
+					<CardItem key={pokemon.name} props={pokemon} />
+				))}
+			</ul>
+		</div>
 	)
 }
 
