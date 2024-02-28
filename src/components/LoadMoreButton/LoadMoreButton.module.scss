@@ -1,0 +1,23 @@
+.btnWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.btn {
+	width: 200px;
+	border: none;
+	border-radius: 5px;
+	color: #ffffff;
+	background-color: #1d2c5e;
+	outline: none;
+	cursor: pointer;
+	transition: background-color 0.5s ease-in-out;
+
+	&:hover {
+		background-color: #06174e;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}

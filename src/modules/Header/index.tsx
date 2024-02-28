@@ -1,5 +1,6 @@
 import React from 'react'
-import { ICONS } from '../../icons'
+
+import { ICONS } from 'icons'
 
 import s from './Header.module.scss'
 

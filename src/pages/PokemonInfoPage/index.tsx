@@ -5,7 +5,7 @@ import React from 'react'
 interface Props {}
 
 const PokemonInfo: React.FC<Props> = () => {
-	return <>POKEMON INFO</>
+	return <></>
 }
 
 export default PokemonInfo
