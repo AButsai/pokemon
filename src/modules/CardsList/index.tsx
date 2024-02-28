@@ -1,20 +1,20 @@
 import React from 'react'
 
-import { IPokemon, IResponsePokemons } from 'types/interfaces'
+import { IPokemonInfo } from 'types/interfaces'
 
 import CardItem from 'modules/CardItem'
 import s from './CardsList.module.scss'
 
 interface Props {
-	pokemons: IPokemon[]
+	pokemons: IPokemonInfo[]
 }
 
 const CardsList: React.FC<Props> = ({ pokemons }) => {
 	return (
 		<div>
-			<ul className={s.list}>
-				{pokemons.map(pokemon => (
-					<CardItem key={pokemon.name} props={pokemon} />
+			<ul className={s.list} id='scrollableDiv'>
+				{pokemons.map((pokemon, ind) => (
+					<CardItem key={ind} props={pokemon} />
 				))}
 			</ul>
 		</div>

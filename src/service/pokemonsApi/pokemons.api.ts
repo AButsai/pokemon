@@ -1,6 +1,5 @@
 import { api } from 'service/api.service'
 import {
-	IPokemonInfo,
 	IQueryPokemons,
 	IResponsePokemons,
 	ITypePokemonResponse,
@@ -15,13 +14,6 @@ const pokemonApi = api.injectEndpoints({
 			}),
 			providesTags: ['pokemon'],
 		}),
-		getPokemonByName: builder.query<IPokemonInfo, string>({
-			query: name => ({
-				url: `pokemon/${name}`,
-				method: 'GET',
-			}),
-			providesTags: ['pokemon'],
-		}),
 		getPokemonsByType: builder.query<ITypePokemonResponse, number>({
 			query: type => ({
 				url: `type/${type}`,
@@ -32,8 +24,4 @@ const pokemonApi = api.injectEndpoints({
 	}),
 })
 
-export const {
-	useGetPokemonsQuery,
-	useGetPokemonByNameQuery,
-	useGetPokemonsByTypeQuery,
-} = pokemonApi
+export const { useGetPokemonsQuery, useGetPokemonsByTypeQuery } = pokemonApi
