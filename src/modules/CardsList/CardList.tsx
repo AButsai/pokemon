@@ -2,7 +2,7 @@ import React from 'react'
 
 import { IPokemonInfo } from 'types/interfaces'
 
-import CardItem from 'modules/CardItem'
+import CardItem from 'modules/CardItem/CardItem'
 import s from './CardsList.module.scss'
 
 interface Props {

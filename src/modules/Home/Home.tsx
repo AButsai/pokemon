@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import CardsList from 'modules/CardsList'
+import CardsList from 'modules/CardsList/CardList'
 
-import LoadMoreButton from 'components/LoadMoreButton'
+import LoadMoreButton from 'components/LoadMoreButton/LoadMoreButton'
 
 import {
 	useGetPokemonsByTypeQuery,
