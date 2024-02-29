@@ -1,0 +1,21 @@
+.wrap {
+	display: flex;
+	align-items: center;
+	border: 1px solid #c4c4c4;
+	padding: 5px;
+	border-bottom: none;
+
+	&:last-child {
+		border-bottom: 1px solid #c4c4c4;
+	}
+}
+
+.name {
+	width: 200px;
+}
+
+.meaning {
+	width: 140px;
+	text-align: center;
+	border-left: 1px solid #c4c4c4;
+}
