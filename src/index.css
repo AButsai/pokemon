@@ -51,6 +51,10 @@ img {
 	display: block;
 }
 
+.blockScroll {
+	overflow: hidden;
+}
+
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;
