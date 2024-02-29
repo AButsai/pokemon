@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import Layout from 'modules/Layout'
-import HomePage from 'pages/HomePage'
+import Layout from 'modules/Layout/Layout'
+import HomePage from 'pages/HomePage/HomePage'
 import PokemonInfoPage from 'pages/PokemonInfoPage'
 
 import { ROUTES } from 'routes/route.const'

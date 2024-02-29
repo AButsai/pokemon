@@ -3,7 +3,7 @@ import React from 'react'
 import { IPokemonInfo } from 'types/interfaces'
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter'
 
-import TypePokemonButton from 'components/TypePokemonButton'
+import TypePokemonButton from 'components/TypePokemonButton/TypePokemonButton'
 
 import s from './CardItem.module.scss'
 
