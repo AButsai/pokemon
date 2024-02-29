@@ -9,17 +9,25 @@ import s from './CardItem.module.scss'
 
 interface Props {
 	props: IPokemonInfo
+	handleOpen: (pokemon: IPokemonInfo) => void
 }
 
-const CardItem: React.FC<Props> = ({ props }) => {
+const CardItem: React.FC<Props> = ({ props, handleOpen }) => {
+	const urlImg = !props?.sprites.other.dream_world.front_default
+		? props.sprites.front_default
+		: props?.sprites.other.dream_world.front_default
+
 	return (
 		props && (
 			<li className={s.item}>
-				<img
-					className={s.img}
-					src={props?.sprites.front_default}
-					alt={props?.name}
-				/>
+				<div className={s.imgWrap}>
+					<img
+						className={s.img}
+						src={urlImg}
+						alt={props?.name}
+						onClick={() => handleOpen(props)}
+					/>
+				</div>
 				<p className={s.title}>{capitalizeFirstLetter(props?.name)}</p>
 				<div>
 					{props.types.map((type, index) => (

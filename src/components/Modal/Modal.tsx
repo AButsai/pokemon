@@ -2,6 +2,7 @@ import { FC, ReactNode, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { ICONS } from 'icons'
+
 import s from './Modal.module.scss'
 
 const modal = document.querySelector<Element>('#modal')
@@ -36,12 +37,8 @@ const Modal: FC<IModalProps> = ({ onClick, children }) => {
 
 	return modal
 		? createPortal(
-				<div
-					id='backdrop'
-					onClick={onClickBackdropClose}
-					className={s.backdrop}
-				>
-					<div className={s.modal}>
+				<div id='backdrop' className={s.backdrop}>
+					<div className={s.modal} onClick={onClickBackdropClose}>
 						<div className={s.modalContent}>
 							<button
 								type='button'
@@ -49,7 +46,7 @@ const Modal: FC<IModalProps> = ({ onClick, children }) => {
 								onClick={onClick}
 								className={s.btnClose}
 							>
-								<ICONS.ICON_CLOSE />
+								<ICONS.ICON_CLOSE className={s.IconClose} />
 							</button>
 							{children}
 						</div>
