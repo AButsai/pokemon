@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import { api } from 'service/api.service'
+import { pokemonTypeIdReducer } from 'service/pokemonsApi/pokemon.slice'
 
 const rootReducer = combineReducers({
 	[api.reducerPath]: api.reducer,
+	pokemonTypeId: pokemonTypeIdReducer,
 })
 
 export const store = configureStore({

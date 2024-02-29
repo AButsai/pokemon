@@ -4,32 +4,56 @@ import CardsList from 'modules/CardsList'
 
 import LoadMoreButton from 'components/LoadMoreButton'
 
-import { fetchPokemonsByName } from 'service/pokemonsApi/get.pokemons.info'
-import { useGetPokemonsQuery } from 'service/pokemonsApi/pokemons.api'
+import {
+	useGetPokemonsByTypeQuery,
+	useGetPokemonsQuery,
+} from 'service/pokemonsApi/pokemons.api'
 
+import { fetchPokemons } from 'helpers/fetchPokemons'
+import { usePokemonType } from 'hooks/usePokemonType'
 import { IPokemonInfo, IQueryPokemons } from 'types/interfaces'
 
 const Home: React.FC = () => {
 	const [limit, setLimit] = useState<IQueryPokemons>({ offset: 0, limit: 12 })
 	const [pokemonsInfo, setPokemonsInfo] = useState<IPokemonInfo[]>([])
+	const [pokemonInfoByType, setPokemonInfoByType] = useState<IPokemonInfo[]>([])
 
-	const { data: pokemons, isSuccess, isLoading } = useGetPokemonsQuery(limit)
+	const {
+		data: pokemons,
+		isSuccess: isSuccessPokemon,
+		isLoading: isLoadingPokemon,
+	} = useGetPokemonsQuery(limit)
+
+	const { typeId } = usePokemonType()
+	const {
+		data: pokemonsByType,
+		isSuccess: isSuccessByType,
+		isLoading: isLoadingByType,
+	} = useGetPokemonsByTypeQuery(typeId, { skip: !typeId })
 
 	useEffect(() => {
-		if (pokemons && isSuccess) {
-			const pokemonNames = pokemons.results.map(p => p.name)
-
-			const fetchPokemons = async (names: string[]) => {
-				const res = await fetchPokemonsByName(names)
-				const newPokemons = res.filter(
-					result => !pokemonsInfo.some(pokemon => pokemon.name === result.name)
-				)
-				setPokemonsInfo(prev => [...prev, ...newPokemons])
-			}
-
-			fetchPokemons(pokemonNames)
+		if (!typeId) {
+			setPokemonInfoByType([])
 		}
-	}, [isSuccess, pokemons])
+	}, [typeId])
+
+	useEffect(() => {
+		if (pokemons && isSuccessPokemon) {
+			const pokemonNames = pokemons.results.map(p => p.name)
+			fetchPokemons(pokemonNames, pokemonsInfo).then(data =>
+				setPokemonsInfo(prev => [...prev, ...data])
+			)
+		}
+	}, [isSuccessPokemon, pokemons])
+
+	useEffect(() => {
+		if (pokemonsByType && isSuccessByType) {
+			const pokemonNames = pokemonsByType.pokemon.map(p => p.pokemon.name)
+			fetchPokemons(pokemonNames, pokemonInfoByType).then(data =>
+				setPokemonInfoByType(data)
+			)
+		}
+	}, [isSuccessByType, pokemonsByType])
 
 	const handleClick = () => {
 		setLimit(prev => {
@@ -40,13 +64,19 @@ const Home: React.FC = () => {
 		})
 	}
 
-	return isLoading ? (
-		<p>Loading...</p>
-	) : (
+	if (isLoadingPokemon || isLoadingByType) {
+		return <p>Loading...</p>
+	}
+
+	return pokemonInfoByType.length === 0 ? (
 		<>
 			<CardsList pokemons={pokemonsInfo} />
-			<LoadMoreButton handleClick={handleClick} />
+			{pokemonsInfo.length !== 0 && (
+				<LoadMoreButton handleClick={handleClick} />
+			)}
 		</>
+	) : (
+		<CardsList pokemons={pokemonInfoByType} />
 	)
 }
 

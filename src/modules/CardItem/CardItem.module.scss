@@ -1,7 +1,15 @@
 .item {
-	border: 1px solid #c4c4c4;
-	border-radius: 5px;
-	height: 500px;
+	border: 1px solid #818181;
+	border-radius: 8px;
+	padding: 20px 20px 50px;
+	transform: scale(1);
+	box-shadow: rgba(192, 191, 191, 0) 0px 2px 8px 0px;
+	transition: scale 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+
+	&:hover {
+		transform: scale(1.02);
+		box-shadow: rgba(161, 161, 161, 0.575) 0px 2px 8px 0px;
+	}
 }
 
 .img {
@@ -10,6 +18,7 @@
 }
 
 .title {
-	color: #c4c4c4;
+	color: #dddcdc;
 	text-align: center;
+	margin-bottom: 20px;
 }
