@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useDispatchAction } from 'hooks/useDispatchAction'
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter'
+
 import s from './TypePokemonButton.module.scss'
 
 interface Props {

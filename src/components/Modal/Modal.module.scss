@@ -58,23 +58,3 @@
 	height: 100%;
 	fill: currentColor;
 }
-
-.modal--entering,
-.modal--entered {
-	opacity: 1;
-}
-
-.modal--entering .modalContent,
-.modal--entered .modalContent {
-	transform: translateY(0);
-}
-
-.modal--exiting,
-.modal--exited {
-	opacity: 0;
-}
-
-.modal--exiting .modalContent,
-.modal--exited .modalContent {
-	transform: translateY(-50px);
-}
