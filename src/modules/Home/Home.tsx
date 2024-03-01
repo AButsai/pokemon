@@ -18,23 +18,26 @@ const Home: React.FC = () => {
 	const [pokemonsInfo, setPokemonsInfo] = useState<IPokemonInfo[]>([])
 	const [pokemonInfoByType, setPokemonInfoByType] = useState<IPokemonInfo[]>([])
 
+	const { typeId } = usePokemonType()
+
 	const {
 		data: pokemons,
 		isSuccess: isSuccessPokemon,
 		isLoading: isLoadingPokemon,
+		isError: isErrorPokemon,
+		error: errorPokemon,
 	} = useGetPokemonsQuery(limit)
 
-	const { typeId } = usePokemonType()
 	const {
 		data: pokemonsByType,
 		isSuccess: isSuccessByType,
 		isLoading: isLoadingByType,
+		isError: isErrorByType,
+		error: errorByType,
 	} = useGetPokemonsByTypeQuery(typeId, { skip: !typeId })
 
 	useEffect(() => {
-		if (!typeId) {
-			setPokemonInfoByType([])
-		}
+		setPokemonInfoByType([])
 	}, [typeId])
 
 	useEffect(() => {
@@ -44,7 +47,11 @@ const Home: React.FC = () => {
 				setPokemonsInfo(prev => [...prev, ...data])
 			)
 		}
-	}, [isSuccessPokemon, pokemons])
+
+		if (isErrorPokemon) {
+			console.log(errorPokemon)
+		}
+	}, [isSuccessPokemon, pokemons, isErrorPokemon])
 
 	useEffect(() => {
 		if (pokemonsByType && isSuccessByType) {
@@ -53,7 +60,11 @@ const Home: React.FC = () => {
 				setPokemonInfoByType(data)
 			)
 		}
-	}, [isSuccessByType, pokemonsByType])
+
+		if (isErrorByType) {
+			console.log(errorByType)
+		}
+	}, [isSuccessByType, pokemonsByType, isErrorByType])
 
 	const handleClick = () => {
 		setLimit(prev => {
