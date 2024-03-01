@@ -17,13 +17,13 @@ const Home: React.FC = () => {
 	const [limit, setLimit] = useState<IQueryPokemons>({ offset: 0, limit: 12 })
 	const [pokemonsInfo, setPokemonsInfo] = useState<IPokemonInfo[]>([])
 	const [pokemonInfoByType, setPokemonInfoByType] = useState<IPokemonInfo[]>([])
+	const [isLoad, setIsLoad] = useState<boolean>(false)
 
 	const { typeId } = usePokemonType()
 
 	const {
 		data: pokemons,
 		isSuccess: isSuccessPokemon,
-		isLoading: isLoadingPokemon,
 		isError: isErrorPokemon,
 		error: errorPokemon,
 	} = useGetPokemonsQuery(limit)
@@ -31,21 +31,25 @@ const Home: React.FC = () => {
 	const {
 		data: pokemonsByType,
 		isSuccess: isSuccessByType,
-		isLoading: isLoadingByType,
 		isError: isErrorByType,
 		error: errorByType,
 	} = useGetPokemonsByTypeQuery(typeId, { skip: !typeId })
 
 	useEffect(() => {
+		if (!typeId) {
+			setIsLoad(false)
+		}
 		setPokemonInfoByType([])
 	}, [typeId])
 
 	useEffect(() => {
+		setIsLoad(true)
 		if (pokemons && isSuccessPokemon) {
 			const pokemonNames = pokemons.results.map(p => p.name)
 			fetchPokemons(pokemonNames, pokemonsInfo).then(data => {
 				if (data) {
 					setPokemonsInfo(prev => [...prev, ...data])
+					setIsLoad(false)
 				}
 			})
 		}
@@ -56,11 +60,15 @@ const Home: React.FC = () => {
 	}, [isSuccessPokemon, pokemons, isErrorPokemon])
 
 	useEffect(() => {
+		if (typeId) {
+			setIsLoad(true)
+		}
 		if (pokemonsByType && isSuccessByType) {
 			const pokemonNames = pokemonsByType.pokemon.map(p => p.pokemon.name)
 			fetchPokemons(pokemonNames, pokemonInfoByType).then(data => {
 				if (data) {
 					setPokemonInfoByType(data)
+					setIsLoad(false)
 				}
 			})
 			window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -69,7 +77,7 @@ const Home: React.FC = () => {
 		if (isErrorByType) {
 			console.log(errorByType)
 		}
-	}, [isSuccessByType, pokemonsByType, isErrorByType])
+	}, [isSuccessByType, pokemonsByType, isErrorByType, typeId])
 
 	const handleClick = () => {
 		setLimit(prev => ({
@@ -78,8 +86,12 @@ const Home: React.FC = () => {
 		}))
 	}
 
-	if (isLoadingPokemon || isLoadingByType) {
-		return <p>Loading...</p>
+	if (isLoad) {
+		return (
+			<p style={{ fontSize: '20px', color: 'white', zIndex: '100000' }}>
+				Loading...
+			</p>
+		)
 	}
 
 	return pokemonInfoByType.length === 0 && !typeId ? (
