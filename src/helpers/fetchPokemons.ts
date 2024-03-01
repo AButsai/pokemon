@@ -6,7 +6,7 @@ export const fetchPokemons = async (
 	pokemons: IPokemonInfo[]
 ) => {
 	const res = await fetchPokemonsByName(names)
-	const newPokemons = res.filter(
+	const newPokemons = res?.filter(
 		result => !pokemons.some(pokemon => pokemon.name === result.name)
 	)
 

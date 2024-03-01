@@ -43,9 +43,11 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		if (pokemons && isSuccessPokemon) {
 			const pokemonNames = pokemons.results.map(p => p.name)
-			fetchPokemons(pokemonNames, pokemonsInfo).then(data =>
-				setPokemonsInfo(prev => [...prev, ...data])
-			)
+			fetchPokemons(pokemonNames, pokemonsInfo).then(data => {
+				if (data) {
+					setPokemonsInfo(prev => [...prev, ...data])
+				}
+			})
 		}
 
 		if (isErrorPokemon) {
@@ -56,9 +58,11 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		if (pokemonsByType && isSuccessByType) {
 			const pokemonNames = pokemonsByType.pokemon.map(p => p.pokemon.name)
-			fetchPokemons(pokemonNames, pokemonInfoByType).then(data =>
-				setPokemonInfoByType(data)
-			)
+			fetchPokemons(pokemonNames, pokemonInfoByType).then(data => {
+				if (data) {
+					setPokemonInfoByType(data)
+				}
+			})
 			window.scrollTo({ top: 0, behavior: 'smooth' })
 		}
 
