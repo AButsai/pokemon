@@ -59,6 +59,7 @@ const Home: React.FC = () => {
 			fetchPokemons(pokemonNames, pokemonInfoByType).then(data =>
 				setPokemonInfoByType(data)
 			)
+			window.scrollTo({ top: 0, behavior: 'smooth' })
 		}
 
 		if (isErrorByType) {

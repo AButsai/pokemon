@@ -15,8 +15,8 @@ const pokemonApi = api.injectEndpoints({
 			providesTags: ['pokemon'],
 		}),
 		getPokemonsByType: builder.query<ITypePokemonResponse, number | null>({
-			query: type => ({
-				url: `type/${type}`,
+			query: id => ({
+				url: `type/${id}`,
 				method: 'GET',
 			}),
 			providesTags: ['pokemon'],
