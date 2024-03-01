@@ -82,7 +82,7 @@ const Home: React.FC = () => {
 		return <p>Loading...</p>
 	}
 
-	return pokemonInfoByType.length === 0 ? (
+	return pokemonInfoByType.length === 0 && !typeId ? (
 		<>
 			<CardsList pokemons={pokemonsInfo} />
 			{pokemonsInfo.length !== 0 && (
