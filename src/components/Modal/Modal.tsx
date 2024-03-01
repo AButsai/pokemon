@@ -42,7 +42,7 @@ const Modal: FC<IModalProps> = ({ onClick, children }) => {
 						<div className={s.modalContent}>
 							<button
 								type='button'
-								aria-label='Кнопка закриття модального вікна'
+								aria-label='Modal window close button'
 								onClick={onClick}
 								className={s.btnClose}
 							>
