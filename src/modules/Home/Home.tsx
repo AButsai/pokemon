@@ -72,12 +72,10 @@ const Home: React.FC = () => {
 	}, [isSuccessByType, pokemonsByType, isErrorByType])
 
 	const handleClick = () => {
-		setLimit(prev => {
-			return {
-				...prev,
-				offset: prev.offset + prev.limit,
-			}
-		})
+		setLimit(prev => ({
+			...prev,
+			offset: prev.offset + prev.limit,
+		}))
 	}
 
 	if (isLoadingPokemon || isLoadingByType) {
