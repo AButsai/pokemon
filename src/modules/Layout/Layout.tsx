@@ -5,9 +5,7 @@ import Header from 'modules/Header/Header'
 
 import s from './Layout.module.scss'
 
-interface Props {}
-
-const Layout: React.FC<Props> = () => {
+const Layout: React.FC = () => {
 	return (
 		<>
 			<Header />
