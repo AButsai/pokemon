@@ -1,7 +1,7 @@
 import { IMovies, IStats, ITotalInfo, ITypesPokemon } from 'types/interfaces'
 import { capitalizeFirstLetter } from './capitalizeFirstLetter'
 
-export const totalInfoPokemon = (
+export const capabilitiesPokemon = (
 	stats: IStats[],
 	types: ITypesPokemon[],
 	weight: number,

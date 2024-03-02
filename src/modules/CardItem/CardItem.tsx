@@ -1,43 +1,46 @@
 import React from 'react'
 
 import { IPokemonInfo } from 'types/interfaces'
-import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter'
 
+import Capabilities from 'components/Capabilities'
 import TypePokemonButton from 'components/TypePokemonButton/TypePokemonButton'
+
+import { capabilitiesPokemon } from 'utils/capabilitiesPokemon'
+import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter'
+import { formatStringId } from 'utils/formatStringId'
 
 import s from './CardItem.module.scss'
 
 interface Props {
-	props: IPokemonInfo
-	handleOpen: (pokemon: IPokemonInfo) => void
+	pokemon: IPokemonInfo
+	handleOpen: () => void
+	isModal: boolean
 }
 
-const CardItem: React.FC<Props> = ({ props, handleOpen }) => {
-	const urlImg = !props?.sprites.other.dream_world.front_default
-		? props.sprites.front_default
-		: props?.sprites.other.dream_world.front_default
+const CardItem: React.FC<Props> = ({ pokemon, handleOpen, isModal }) => {
+	const { id, name, sprites, stats, types, weight, moves } = pokemon
+
+	const capabilities = capabilitiesPokemon(stats, types, weight, moves)
+
+	const urlImg = !sprites.other.dream_world.front_default
+		? sprites.front_default
+		: sprites.other.dream_world.front_default
 
 	return (
-		props && (
-			<li className={s.item}>
+		pokemon &&
+		urlImg && (
+			<li className={isModal ? s.itemModal : s.item}>
 				<div className={s.imgWrap}>
-					<img
-						className={s.img}
-						src={urlImg}
-						alt={props?.name}
-						onClick={() => handleOpen(props)}
-					/>
+					<img className={s.img} src={urlImg} alt={name} onClick={handleOpen} />
 				</div>
-				<p className={s.title}>{capitalizeFirstLetter(props?.name)}</p>
-				<div>
-					{props.types.map((type, index) => (
-						<TypePokemonButton
-							key={index}
-							name={type.type.name}
-							url={type.type.url}
-						/>
-					))}
+				<div className={s.titleWrap}>
+					<span className={isModal ? `${s.title} ${s.titleModal}` : s.title}>
+						{capitalizeFirstLetter(name)}
+					</span>
+					{isModal && <span className={s.span}>{formatStringId(id)}</span>}
 				</div>
+				{!isModal && <TypePokemonButton types={types} />}
+				{isModal && <Capabilities capabilities={capabilities} />}
 			</li>
 		)
 	)

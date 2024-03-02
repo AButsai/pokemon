@@ -6,6 +6,6 @@ const baseQuery = fetchBaseQuery({
 
 export const api = createApi({
 	tagTypes: ['pokemon'],
-	baseQuery: baseQuery,
+	baseQuery,
 	endpoints: () => ({}),
 })

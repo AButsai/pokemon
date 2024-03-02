@@ -5,7 +5,6 @@ import { IPokemonInfo } from 'types/interfaces'
 import Modal from 'components/Modal'
 
 import CardItem from 'modules/CardItem/CardItem'
-import CartItemInfo from 'modules/CardItem/CartItemInfo'
 
 import s from './CardsList.module.scss'
 
@@ -35,15 +34,24 @@ const CardsList: React.FC<Props> = ({ pokemons }) => {
 					{pokemons.map((pokemon, ind) => (
 						<CardItem
 							key={ind}
-							props={pokemon}
+							pokemon={pokemon}
 							handleOpen={() => handleOpen(pokemon)}
+							isModal={false}
 						/>
 					))}
 				</ul>
 			</div>
 			{isOpenModal && (
 				<Modal onClick={handleClose}>
-					{selectedPokemon && <CartItemInfo pokemon={selectedPokemon} />}
+					<ul className={s.listBlock}>
+						{selectedPokemon && (
+							<CardItem
+								pokemon={selectedPokemon}
+								handleOpen={() => {}}
+								isModal={true}
+							/>
+						)}
+					</ul>
 				</Modal>
 			)}
 		</>
