@@ -12,9 +12,17 @@
 	}
 }
 
+.itemModal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
 .imgWrap {
 	width: 170px;
-	height: 250px;
+	height: 300px;
 	margin: 0 auto;
 	cursor: pointer;
 	display: flex;
@@ -26,8 +34,25 @@
 	object-fit: contain;
 }
 
-.title {
-	color: #dddcdc;
-	text-align: center;
+.titleWrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin-bottom: 20px;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 900;
+	color: #dddcdc;
+}
+
+.titleModal {
+	color: #213547;
+	margin-right: 20px;
+}
+
+.span {
+	font-size: 18px;
+	font-weight: 900;
 }

@@ -40,6 +40,20 @@ body {
 	background-color: #464646;
 }
 
+body::-webkit-scrollbar {
+	width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+	background: #a3a3a3;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: #39393a;
+	border-radius: 20px;
+	border: 3px solid #39393a;
+}
+
 h1 {
 	font-size: 3.2em;
 	line-height: 1.1;

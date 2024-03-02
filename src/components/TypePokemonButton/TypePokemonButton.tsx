@@ -1,28 +1,34 @@
 import React from 'react'
 
 import { useDispatchAction } from 'hooks/useDispatchAction'
+
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter'
+
+import { ITypesPokemon } from 'types/interfaces'
 
 import s from './TypePokemonButton.module.scss'
 
 interface Props {
-	name: string
-	url: string
+	types: ITypesPokemon[]
 }
 
-const TypePokemonButton: React.FC<Props> = ({ name, url }) => {
+const TypePokemonButton: React.FC<Props> = ({ types }) => {
 	const { setTypeId } = useDispatchAction()
-	const id = parseInt(url.replace(/^.*\/(\d+)\/$/, '$1'))
 
-	const handleClick = () => {
+	const handleClick = (url: string) => {
+		const id = parseInt(url.replace(/^.*\/(\d+)\/$/, '$1'))
 		setTypeId({ id })
 	}
 
-	return (
-		<button onClick={handleClick} className={`${s[name]} ${s.btn}`}>
-			{capitalizeFirstLetter(name)}
+	return types.map(t => (
+		<button
+			key={t.type.name}
+			onClick={() => handleClick(t.type.url)}
+			className={`${s[t.type.name]} ${s.btn}`}
+		>
+			{capitalizeFirstLetter(t.type.name)}
 		</button>
-	)
+	))
 }
 
 export default TypePokemonButton

@@ -8,9 +8,11 @@ import s from './Header.module.scss'
 
 const Header: React.FC = () => {
 	const { setTypeId } = useDispatchAction()
+
 	const handleClick = () => {
 		setTypeId({ id: null })
 	}
+
 	return (
 		<header className={s.header}>
 			<div className={s.logoWrap}>
